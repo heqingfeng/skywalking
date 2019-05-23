@@ -8,7 +8,7 @@ public class KafkaProperties{
 	
 	private KafkaProperties(){}
 	
-	public static Properties getInstance() {
+	public static Properties getKafkaProperties() {
 		return Kafkaproperties;
 	}
 	

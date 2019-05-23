@@ -13,7 +13,7 @@ public class KafkaProducerFactory {
 	
 	private KafkaProducerFactory(){}
 	
-	public static  KafkaProducer getInstance(Properties properties) {
+	public static  KafkaProducer getKafkaProducer(Properties properties) {
 		if(kafkaProducer==null) {
 		      synchronized(KafkaProducerFactory.class) {
 		           if(kafkaProducer==null)

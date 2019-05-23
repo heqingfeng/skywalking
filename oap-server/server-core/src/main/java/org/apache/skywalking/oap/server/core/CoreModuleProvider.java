@@ -166,7 +166,7 @@ public class CoreModuleProvider extends ModuleProvider {
         this.remoteClientManager = new RemoteClientManager(getManager());
         this.registerServiceImplementation(RemoteClientManager.class, remoteClientManager);
         
-        Properties kafkaProperties = KafkaProperties.getInstance();
+        Properties kafkaProperties = KafkaProperties.getKafkaProperties();
         kafkaProperties.put("bootstrap.servers", moduleConfig.getKafkaServers());
         kafkaProperties.put("acks", moduleConfig.getKafkaAcks());
         kafkaProperties.put("retries", moduleConfig.getKafkaRetries());
@@ -176,7 +176,7 @@ public class CoreModuleProvider extends ModuleProvider {
         kafkaProperties.put("key.serializer", moduleConfig.getKafkaKeySerializer());
         kafkaProperties.put("value.serializer", moduleConfig.getKafkaValueSerializer());
         kafkaProperties.put("topic", moduleConfig.getKafkaTopic());
-        KafkaProducer kafkaProducerFactory = KafkaProducerFactory.getInstance(kafkaProperties);
+        KafkaProducer kafkaProducerFactory = KafkaProducerFactory.getKafkaProducer(kafkaProperties);
 
     }
 

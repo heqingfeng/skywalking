@@ -68,8 +68,8 @@ public class TraceSegmentReportServiceHandler extends TraceSegmentReportServiceG
                 }
                 
                 try {
-                	Properties properties = KafkaProperties.getInstance();
-                	KafkaProducer kafkaProducer = KafkaProducerFactory.getInstance(properties);
+                	Properties properties = KafkaProperties.getKafkaProperties();
+                	KafkaProducer kafkaProducer = KafkaProducerFactory.getKafkaProducer(properties);
                 	kafkaProducer.send(new ProducerRecord<String, String>(properties.getProperty("topic"),segment.toString()));
                 }catch(Exception e) {
                 	logger.error("生产消息失败，e="+e.getMessage());

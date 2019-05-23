@@ -21,6 +21,7 @@ package org.apache.skywalking.oap.server.core;
 import java.io.IOException;
 import java.util.Properties;
 
+import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.skywalking.oap.server.core.analysis.DisableRegister;
 import org.apache.skywalking.oap.server.core.analysis.indicator.annotation.IndicatorTypeListener;
 import org.apache.skywalking.oap.server.core.analysis.record.annotation.RecordTypeListener;
@@ -29,6 +30,8 @@ import org.apache.skywalking.oap.server.core.annotation.AnnotationScan;
 import org.apache.skywalking.oap.server.core.cache.*;
 import org.apache.skywalking.oap.server.core.cluster.*;
 import org.apache.skywalking.oap.server.core.config.*;
+import org.apache.skywalking.oap.server.core.kafka.KafkaProducerFactory;
+import org.apache.skywalking.oap.server.core.kafka.KafkaProperties;
 import org.apache.skywalking.oap.server.core.query.*;
 import org.apache.skywalking.oap.server.core.register.annotation.InventoryTypeListener;
 import org.apache.skywalking.oap.server.core.register.service.*;
@@ -37,8 +40,6 @@ import org.apache.skywalking.oap.server.core.remote.annotation.*;
 import org.apache.skywalking.oap.server.core.remote.client.*;
 import org.apache.skywalking.oap.server.core.remote.health.HealthCheckServiceHandler;
 import org.apache.skywalking.oap.server.core.server.*;
-import org.apache.skywalking.oap.server.core.single.KafkaProducerFactory;
-import org.apache.skywalking.oap.server.core.single.KafkaProperties;
 import org.apache.skywalking.oap.server.core.source.*;
 import org.apache.skywalking.oap.server.core.storage.PersistenceTimer;
 import org.apache.skywalking.oap.server.core.storage.annotation.StorageAnnotationListener;
@@ -175,7 +176,7 @@ public class CoreModuleProvider extends ModuleProvider {
         kafkaProperties.put("key.serializer", moduleConfig.getKafkaKeySerializer());
         kafkaProperties.put("value.serializer", moduleConfig.getKafkaValueSerializer());
         kafkaProperties.put("topic", moduleConfig.getKafkaTopic());
-        KafkaProducerFactory kafkaProducerFactory = KafkaProducerFactory.getInstance();
+        KafkaProducer kafkaProducerFactory = KafkaProducerFactory.getInstance(kafkaProperties);
 
     }
 

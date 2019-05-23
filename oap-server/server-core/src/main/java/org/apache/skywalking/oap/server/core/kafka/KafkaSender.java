@@ -7,15 +7,17 @@ import org.apache.kafka.clients.producer.ProducerRecord;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class KafkaProducerFactory {
+public class KafkaSender {
 	
+	private static final Logger logger = LoggerFactory.getLogger(KafkaSender.class);
+
 	private static volatile KafkaProducer<String, String> kafkaProducer=null;
 	
-	private KafkaProducerFactory(){}
+	private KafkaSender(){}
 	
 	public static  KafkaProducer getKafkaProducer() {
 		if(kafkaProducer==null) {
-		      synchronized(KafkaProducerFactory.class) {
+		      synchronized(KafkaSender.class) {
 		           if(kafkaProducer==null) {
 		        	   Properties properties = KafkaProperties.getKafkaProperties();
 		        	   kafkaProducer=new KafkaProducer<String, String>(properties);
@@ -24,5 +26,15 @@ public class KafkaProducerFactory {
 		      }
 		 }
 		 return kafkaProducer;
+	}
+	
+	public static void send(String message) {
+		Properties properties = KafkaProperties.getKafkaProperties();
+		try {
+			kafkaProducer.send(new ProducerRecord<String, String>(properties.getProperty("topic"),message));
+		}catch(Exception e) {
+			logger.error("kafka send message error,e="+e.getMessage());
+		}
+    	
 	}
 }

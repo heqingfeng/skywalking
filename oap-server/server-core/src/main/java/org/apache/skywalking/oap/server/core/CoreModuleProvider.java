@@ -30,7 +30,7 @@ import org.apache.skywalking.oap.server.core.annotation.AnnotationScan;
 import org.apache.skywalking.oap.server.core.cache.*;
 import org.apache.skywalking.oap.server.core.cluster.*;
 import org.apache.skywalking.oap.server.core.config.*;
-import org.apache.skywalking.oap.server.core.kafka.KafkaProducerFactory;
+import org.apache.skywalking.oap.server.core.kafka.KafkaSender;
 import org.apache.skywalking.oap.server.core.kafka.KafkaProperties;
 import org.apache.skywalking.oap.server.core.query.*;
 import org.apache.skywalking.oap.server.core.register.annotation.InventoryTypeListener;
@@ -176,7 +176,7 @@ public class CoreModuleProvider extends ModuleProvider {
         kafkaProperties.put("key.serializer", moduleConfig.getKafkaKeySerializer());
         kafkaProperties.put("value.serializer", moduleConfig.getKafkaValueSerializer());
         kafkaProperties.put("topic", moduleConfig.getKafkaTopic());
-        KafkaProducer kafkaProducerFactory = KafkaProducerFactory.getKafkaProducer();
+        KafkaProducer kafkaProducer = KafkaSender.getKafkaProducer();
 
     }
 

@@ -27,7 +27,7 @@ import org.apache.kafka.clients.producer.ProducerRecord;
 import org.apache.skywalking.apm.network.common.Commands;
 import org.apache.skywalking.apm.network.language.agent.UpstreamSegment;
 import org.apache.skywalking.apm.network.language.agent.v2.TraceSegmentReportServiceGrpc;
-import org.apache.skywalking.oap.server.core.kafka.KafkaProducerFactory;
+import org.apache.skywalking.oap.server.core.kafka.KafkaSender;
 import org.apache.skywalking.oap.server.core.kafka.KafkaProperties;
 import org.apache.skywalking.oap.server.library.module.ModuleManager;
 import org.apache.skywalking.oap.server.library.server.grpc.GRPCHandler;
@@ -68,9 +68,7 @@ public class TraceSegmentReportServiceHandler extends TraceSegmentReportServiceG
                 }
                 
                 try {
-                	Properties properties = KafkaProperties.getKafkaProperties();
-                	KafkaProducer kafkaProducer = KafkaProducerFactory.getKafkaProducer();
-                	kafkaProducer.send(new ProducerRecord<String, String>(properties.getProperty("topic"),segment.toString()));
+                	KafkaSender.send(segment.toString());              	
                 }catch(Exception e) {
                 	logger.error("生产消息失败，e="+e.getMessage());
                 	

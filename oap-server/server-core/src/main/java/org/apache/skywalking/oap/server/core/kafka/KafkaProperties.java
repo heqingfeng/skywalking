@@ -4,7 +4,7 @@ import java.util.Properties;
 
 public class KafkaProperties{
 	
-	public static final Properties Kafkaproperties = new Properties();
+	private static final Properties Kafkaproperties = new Properties();
 	
 	private KafkaProperties(){}
 	

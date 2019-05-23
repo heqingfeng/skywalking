@@ -176,7 +176,7 @@ public class CoreModuleProvider extends ModuleProvider {
         kafkaProperties.put("key.serializer", moduleConfig.getKafkaKeySerializer());
         kafkaProperties.put("value.serializer", moduleConfig.getKafkaValueSerializer());
         kafkaProperties.put("topic", moduleConfig.getKafkaTopic());
-        KafkaProducer kafkaProducerFactory = KafkaProducerFactory.getKafkaProducer(kafkaProperties);
+        KafkaProducer kafkaProducerFactory = KafkaProducerFactory.getKafkaProducer();
 
     }
 

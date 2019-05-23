@@ -13,11 +13,13 @@ public class KafkaProducerFactory {
 	
 	private KafkaProducerFactory(){}
 	
-	public static  KafkaProducer getKafkaProducer(Properties properties) {
+	public static  KafkaProducer getKafkaProducer() {
 		if(kafkaProducer==null) {
 		      synchronized(KafkaProducerFactory.class) {
-		           if(kafkaProducer==null)
+		           if(kafkaProducer==null) {
+		        	   Properties properties = KafkaProperties.getKafkaProperties();
 		        	   kafkaProducer=new KafkaProducer<String, String>(properties);
+		           }		        	  
 		           return kafkaProducer;
 		      }
 		 }

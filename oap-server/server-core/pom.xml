@@ -79,7 +79,7 @@
             <groupId>io.grpc</groupId>
             <artifactId>grpc-testing</artifactId>
             <scope>test</scope>
-        </dependency>        
+        </dependency>
     </dependencies>
 
     <build>

@@ -27,6 +27,7 @@ import org.apache.skywalking.oap.server.receiver.trace.module.TraceModule;
 import org.apache.skywalking.oap.server.receiver.trace.provider.handler.v5.grpc.TraceSegmentServiceHandler;
 import org.apache.skywalking.oap.server.receiver.trace.provider.handler.v5.rest.TraceSegmentServletHandler;
 import org.apache.skywalking.oap.server.receiver.trace.provider.handler.v6.grpc.TraceSegmentReportServiceHandler;
+import org.apache.skywalking.oap.server.receiver.trace.provider.parameterfilter.SqlParameterFilter;
 import org.apache.skywalking.oap.server.receiver.trace.provider.parser.*;
 import org.apache.skywalking.oap.server.receiver.trace.provider.parser.listener.endpoint.MultiScopesSpanListener;
 import org.apache.skywalking.oap.server.receiver.trace.provider.parser.listener.segment.SegmentSpanListener;
@@ -79,6 +80,8 @@ public class TraceModuleProvider extends ModuleProvider {
         listenerManager.add(new SegmentSpanListener.Factory(moduleConfig.getSampleRate()));
 
         segmentProducerV2 = new SegmentParseV2.Producer(getManager(), listenerManager, moduleConfig);
+        
+        SqlParameterFilter sqlParameterFilter = SqlParameterFilter.getInstance();
 
         this.registerServiceImplementation(ISegmentParserService.class, new SegmentParserServiceImpl(segmentProducerV2));
     }

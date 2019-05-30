@@ -19,16 +19,9 @@
 package org.apache.skywalking.oap.server.receiver.trace.provider.handler.v6.grpc;
 
 import io.grpc.stub.StreamObserver;
-
-import java.util.Properties;
-
-import org.apache.kafka.clients.producer.KafkaProducer;
-import org.apache.kafka.clients.producer.ProducerRecord;
 import org.apache.skywalking.apm.network.common.Commands;
 import org.apache.skywalking.apm.network.language.agent.UpstreamSegment;
 import org.apache.skywalking.apm.network.language.agent.v2.TraceSegmentReportServiceGrpc;
-import org.apache.skywalking.oap.server.core.kafka.KafkaSender;
-import org.apache.skywalking.oap.server.core.kafka.KafkaProperties;
 import org.apache.skywalking.oap.server.library.module.ModuleManager;
 import org.apache.skywalking.oap.server.library.server.grpc.GRPCHandler;
 import org.apache.skywalking.oap.server.receiver.trace.provider.handler.v5.grpc.TraceSegmentServiceHandler;
@@ -59,7 +52,9 @@ public class TraceSegmentReportServiceHandler extends TraceSegmentReportServiceG
                 if (logger.isDebugEnabled()) {
                     logger.debug("receive segment");
                 }
-
+                //Add this line for statistical QPS
+                logger.info("collect start");
+                
                 HistogramMetric.Timer timer = histogram.createTimer();
                 try {
                     segmentProducer.send(segment, SegmentSource.Agent);
@@ -67,12 +62,6 @@ public class TraceSegmentReportServiceHandler extends TraceSegmentReportServiceG
                     timer.finish();
                 }
                 
-                try {
-                	KafkaSender.send(segment.toString());              	
-                }catch(Exception e) {
-                	logger.error("生产消息失败，e="+e.getMessage());
-                	
-                }
             }
 
             @Override public void onError(Throwable throwable) {

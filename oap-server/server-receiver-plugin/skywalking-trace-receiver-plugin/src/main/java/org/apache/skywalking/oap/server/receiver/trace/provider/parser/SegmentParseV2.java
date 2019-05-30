@@ -27,6 +27,7 @@ import org.apache.skywalking.oap.server.library.buffer.*;
 import org.apache.skywalking.oap.server.library.module.ModuleManager;
 import org.apache.skywalking.oap.server.library.util.TimeBucketUtils;
 import org.apache.skywalking.oap.server.receiver.trace.provider.TraceServiceModuleConfig;
+import org.apache.skywalking.oap.server.receiver.trace.provider.parameterfilter.SqlParameterFilter;
 import org.apache.skywalking.oap.server.receiver.trace.provider.parser.decorator.*;
 import org.apache.skywalking.oap.server.receiver.trace.provider.parser.listener.*;
 import org.apache.skywalking.oap.server.receiver.trace.provider.parser.standardization.*;
@@ -86,9 +87,21 @@ public class SegmentParseV2 {
                 bufferData.setV2Segment(parseBinarySegment(upstreamSegment));
             }
             SegmentObject segmentObject = parseBinarySegment(upstreamSegment);
-
+            
+            try {
+            	if("open".equals(config.getSqlParameterFilterSwitch())) {
+                	SqlParameterFilter sqlParameterFilter = SqlParameterFilter.getInstance();
+                	segmentObject = sqlParameterFilter.parameterFilter(segmentObject);
+                }
+                
+            }catch(Exception e){
+            	logger.error("sqlParameterFilter error,e="+e.getMessage());
+            }
+            
             SegmentDecorator segmentDecorator = new SegmentDecorator(segmentObject);
 
+            
+            
             if (!preBuild(traceIds, segmentDecorator)) {
                 if (logger.isDebugEnabled()) {
                     logger.debug("This segment id exchange not success, write to buffer file, id: {}", segmentCoreInfo.getSegmentId());
@@ -134,7 +147,7 @@ public class SegmentParseV2 {
         for (UniqueId uniqueId : traceIds) {
             notifyGlobalsListener(uniqueId);
         }
-
+        
         segmentCoreInfo.setSegmentId(segmentIdBuilder.toString());
         segmentCoreInfo.setServiceId(segmentDecorator.getServiceId());
         segmentCoreInfo.setServiceInstanceId(segmentDecorator.getServiceInstanceId());

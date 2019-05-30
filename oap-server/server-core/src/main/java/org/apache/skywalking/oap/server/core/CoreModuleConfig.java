@@ -43,15 +43,6 @@ public class CoreModuleConfig extends ModuleConfig {
     @Setter private int hourMetricsDataTTL;
     @Setter private int dayMetricsDataTTL;
     @Setter private int monthMetricsDataTTL;
-    @Setter @Getter private String kafkaServers;
-    @Setter @Getter private String kafkaTopic;
-    @Setter @Getter private String kafkaAcks;
-    @Setter @Getter private int kafkaRetries;
-    @Setter @Getter private int kafkaBatchSize;
-    @Setter @Getter private int kafkaLingerMs;
-    @Setter @Getter private int kafkaBufferMemory;
-    @Setter @Getter private String kafkaKeySerializer;
-    @Setter @Getter private String kafkaValueSerializer;
 
 
     CoreModuleConfig() {

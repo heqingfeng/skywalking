@@ -29,6 +29,7 @@ public class TraceServiceModuleConfig extends ModuleConfig {
     @Setter @Getter private int bufferOffsetMaxFileSize;
     @Setter @Getter private int bufferDataMaxFileSize;
     @Setter @Getter private boolean bufferFileCleanWhenRestart;
+    @Setter @Getter private String SqlParameterFilterSwitch;
     /**
      * The sample rate precision is 1/10000. 10000 means 100% sample in default.
      */

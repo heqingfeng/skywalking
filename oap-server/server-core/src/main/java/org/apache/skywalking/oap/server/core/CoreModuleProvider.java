@@ -19,8 +19,6 @@
 package org.apache.skywalking.oap.server.core;
 
 import java.io.IOException;
-import java.util.Properties;
-
 import org.apache.skywalking.oap.server.core.analysis.DisableRegister;
 import org.apache.skywalking.oap.server.core.analysis.indicator.annotation.IndicatorTypeListener;
 import org.apache.skywalking.oap.server.core.analysis.record.annotation.RecordTypeListener;
@@ -162,7 +160,6 @@ public class CoreModuleProvider extends ModuleProvider {
 
         this.remoteClientManager = new RemoteClientManager(getManager());
         this.registerServiceImplementation(RemoteClientManager.class, remoteClientManager);
-
     }
 
     @Override public void start() throws ModuleStartException {

@@ -44,7 +44,6 @@ public class CoreModuleConfig extends ModuleConfig {
     @Setter private int dayMetricsDataTTL;
     @Setter private int monthMetricsDataTTL;
 
-
     CoreModuleConfig() {
         this.downsampling = new ArrayList<>();
     }

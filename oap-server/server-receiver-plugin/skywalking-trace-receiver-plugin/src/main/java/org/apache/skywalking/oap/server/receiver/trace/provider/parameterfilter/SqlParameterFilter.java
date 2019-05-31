@@ -26,7 +26,7 @@ public class SqlParameterFilter {
 		return sqlParameterFilter;
 	}
 	
-	public static SegmentObject parameterFilter(SegmentObject segmentObject) {
+	public  SegmentObject parameterFilter(SegmentObject segmentObject) {
 		
 		List<SpanObjectV2> spanObjectV2List = segmentObject.getSpansList();
 		int spanIndex = 0;
@@ -60,7 +60,7 @@ public class SqlParameterFilter {
 	 * @param findText
 	 * @return
 	 */
-	public static String format(String srcText) {     
+	public  String format(String srcText) {     
 	    StringBuffer sb = new StringBuffer(srcText);
 	    int index = srcText.toLowerCase().indexOf(START_FIND_TEXT)+1; 
 	    if(index<=0) {

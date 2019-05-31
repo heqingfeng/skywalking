@@ -92,7 +92,8 @@ public class SegmentParseV2 {
             	if("open".equals(config.getSqlParameterFilterSwitch())) {
                 	SqlParameterFilter sqlParameterFilter = SqlParameterFilter.getInstance();
                 	segmentObject = sqlParameterFilter.parameterFilter(segmentObject);
-                }
+                    logger.info("sqlParameterFilter sucess");
+            	}
                 
             }catch(Exception e){
             	logger.error("sqlParameterFilter error,e="+e.getMessage());

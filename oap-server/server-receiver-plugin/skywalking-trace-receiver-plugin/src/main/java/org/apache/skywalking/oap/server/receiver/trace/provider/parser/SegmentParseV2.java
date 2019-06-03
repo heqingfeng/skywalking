@@ -89,10 +89,9 @@ public class SegmentParseV2 {
             SegmentObject segmentObject = parseBinarySegment(upstreamSegment);
             
             try {
-            	if("open".equals(config.getSqlParameterFilterSwitch())) {
+            	if(config.getSqlParameterFilterSwitch()==1) {
                 	SqlParameterFilter sqlParameterFilter = SqlParameterFilter.getInstance();
                 	segmentObject = sqlParameterFilter.parameterFilter(segmentObject);
-                    logger.info("sqlParameterFilter sucess");
             	}
                 
             }catch(Exception e){

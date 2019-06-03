@@ -19,18 +19,20 @@
 
 <Configuration status="info">
     <Properties>
-        <Property name="log-path">${sys:oap.logDir}</Property>
+        <Property name="log.path">/med/log/apps</Property>
+        <Property name="git.group">skywalking</Property>
+        <Property name="project.name">backend</Property>
     </Properties>
     <Appenders>
-        <RollingFile name="RollingFile" fileName="${log-path}/skywalking-oap-server.log"
-                     filePattern="${log-path}/skywalking-oap-server-%d{yyyy-MM-dd}-%i.log" >
+        <RollingFile name="RollingFile" fileName="${log.path}/${project.name}.log"
+                     filePattern="${log.path}/bak/${project.name}-%d{yyyy-MM-dd}.log" >
             <PatternLayout>
-                <pattern>%d - %c - %L [%t] %-5p %x - %m%n</pattern>
+                <pattern>%d{yyyy-MM-dd'T'HH:mm:ss.SSSZ} [%level] ${git.group}/${project.name} %logger{36} - - %msg%n</pattern>
             </PatternLayout>
             <Policies>
-                <SizeBasedTriggeringPolicy size="102400KB" />
+                <TimeBasedTriggeringPolicy/>
             </Policies>
-            <DefaultRolloverStrategy max="30"/>
+            <DefaultRolloverStrategy max="7"/>
         </RollingFile>
     </Appenders>
     <Loggers>

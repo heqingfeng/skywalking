@@ -52,8 +52,6 @@ public class TraceSegmentReportServiceHandler extends TraceSegmentReportServiceG
                 if (logger.isDebugEnabled()) {
                     logger.debug("receive segment");
                 }
-                //Add this line for statistical QPS
-                logger.info("collect start");
                 
                 HistogramMetric.Timer timer = histogram.createTimer();
                 try {
